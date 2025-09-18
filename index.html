@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prep.AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 h-screen overflow-hidden">
+
+    <main class="w-full p-4 md:p-8 flex flex-col h-full relative">
+        
+        <button id="theme-toggle" class="absolute top-6 right-6 p-2 rounded-full text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-100 dark:focus:ring-offset-slate-900 focus:ring-indigo-500">
+            <svg id="theme-icon-light" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707"/>
+            </svg>
+            <svg id="theme-icon-dark" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+        </button>
+        
+        <!-- Header -->
+        <header class="text-center pt-4 flex-shrink-0">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
+                <span class="text-orange-500">Prep AI</span> : AI Interview Coach
+            </h1>
+        </header>
+
+        <!-- Main content area -->
+        <div class="flex-grow overflow-hidden py-6">
+            <!-- Loading Spinner (Hidden by default) -->
+            <div id="loading-spinner" class="hidden flex justify-center items-center py-4">
+                <div class="spinner"></div>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-8 h-full">
+                <!-- Left Column: Question and Answer -->
+                <div class="md:w-1/2 flex flex-col gap-6">
+                    <!-- Question Display -->
+                    <section id="question-container" class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg flex items-center justify-center flex-grow">
+                        <p id="question-display" class="text-lg text-center text-slate-500 dark:text-slate-400">Click 'Start Interview' to begin.</p>
+                    </section>
+
+                    <!-- User Input Section -->
+                    <section id="user-input-section" class="space-y-4 flex-shrink-0">
+                        <textarea id="user-answer" class="w-full h-40 p-4 bg-slate-200 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition" placeholder="Type your answer here..."></textarea>
+                        <button id="submit-answer" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-300 disabled:bg-slate-500 disabled:cursor-not-allowed">
+                            Submit Answer
+                        </button>
+                    </section>
+                </div>
+
+                <!-- Right Column: Feedback -->
+                <div class="md:w-1/2 flex flex-col">
+                    <!-- AI Feedback Display -->
+                    <section id="feedback-container" class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg h-full flex flex-col">
+                        <h2 class="text-xl font-semibold mb-2 text-slate-900 dark:text-white flex-shrink-0">Feedback</h2>
+                        <div id="feedback-display" class="text-slate-700 dark:text-slate-300 space-y-2 flex-grow overflow-y-auto pr-2">
+                            <!-- Feedback will be populated here by JavaScript -->
+                        </div>
+                        <button id="detailed-feedback-button" class="hidden mt-4 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-colors duration-300 w-full flex-shrink-0 disabled:bg-slate-500 disabled:cursor-not-allowed">
+                            Get Detailed Feedback
+                        </button>
+                    </section>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Controls -->
+        <footer class="pt-4 pb-4 flex justify-center items-center gap-4 flex-shrink-0">
+            <button id="start-interview" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-6 rounded-lg shadow-xl transition-transform transform hover:scale-105">
+                Start Interview
+            </button>
+            <button id="next-question" class="hidden bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 px-6 rounded-lg shadow-xl transition-transform transform hover:scale-105 disabled:bg-slate-500 disabled:cursor-not-allowed">
+                Next Question
+            </button>
+            <button id="skip-question" class="hidden bg-rose-600 hover:bg-rose-500 text-white font-bold py-3 px-6 rounded-lg shadow-xl transition-transform transform hover:scale-105 disabled:bg-slate-500 disabled:cursor-not-allowed">
+                Skip
+            </button>
+        </footer>
+
+    </main>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
+
